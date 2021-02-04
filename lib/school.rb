@@ -1,26 +1,35 @@
+require 'pry'
 class School
-    attr_accessor :roster, :name
-
     def initialize(name)
         @name = name
         @roster = {}
     end
 
+    def roster
+        @roster
+    end
+
     def add_student(name, grade)
-    #every time you add a student, you reinitialize your roster[grade] to [] which discards all of previous added students.
-        roster[grade] ||= []
-        roster[grade] << name
+        if(roster[grade])
+            roster[grade] << name
+        else 
+            roster[grade] = []
+            roster[grade] << name
+        end
+        roster
     end
 
     def grade(grade)
         roster[grade]
     end
-    def sort
-        sorted = {}
-        roster.each do |grade, students|
-          sorted[grade] = students.sort
+
+    def sort 
+        roster.each do |key, value|
+            value.sort!
         end
-        sorted
-      end
+        roster.sort.to_h
     end
 
+end 
+binding.pry
+0
